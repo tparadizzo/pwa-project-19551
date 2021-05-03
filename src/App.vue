@@ -1,24 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <GoogleMaps :data="mapData" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import GoogleMaps from "./components/GoogleMaps";
 
 export default {
+  data() {
+    return {
+      mapData: [],
+    };
+  },
+
   name: "App",
   components: {
-    HelloWorld,
+    GoogleMaps,
   },
 };
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Karla", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -26,3 +31,4 @@ export default {
   margin-top: 60px;
 }
 </style>
+

@@ -95,10 +95,36 @@
 </template>
 
 <script>
+//import datas
+import { getWeatherData } from "../services/weatherService";
+import { getDublinBike } from "../services/dublinBikeService";
+
 export default {
   name: "HelloWorld",
   props: {
     msg: String,
+  },
+
+  mounted() {
+    //when start get weather
+    this.getWeatherData(); //when start get dublin bike
+
+    this.getDublinBike();
+  }, //create method above
+  methods: {
+    async getWeatherData() {
+      //wait the code execute to after get the result
+      const weatherData = await getWeatherData();
+      const weatherJson = await weatherData.json();
+
+      console.log(weatherJson);
+    },
+
+    async getDublinBike() {
+      const dublinData = await getDublinBike();
+      const dublinJson = await dublinData.json();
+      console.log(dublinJson);
+    },
   },
 };
 </script>
