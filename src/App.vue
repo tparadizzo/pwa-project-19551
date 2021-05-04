@@ -6,6 +6,7 @@
 
 <script>
 import GoogleMaps from "./components/GoogleMaps";
+import { getDublinBike } from "./services/dublinBikeService";
 
 export default {
   data() {
@@ -17,6 +18,18 @@ export default {
   name: "App",
   components: {
     GoogleMaps,
+  },
+
+  async mounted() {
+    await this.getDublinBike();
+  },
+
+  methods: {
+    async getDublinBike() {
+      const dublinData = await getDublinBike();
+      const dublinJson = await dublinData.json();
+      this.mapData = dublinJson;
+    },
   },
 };
 </script>
