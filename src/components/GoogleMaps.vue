@@ -30,6 +30,7 @@ export default {
     data(newData, oldData) {
       console.log(newData, oldData);
       this.createMarkers();
+      this.clearMarkers();
     },
   },
 
@@ -51,23 +52,32 @@ export default {
 
         this.createMarkers();
         clearInterval(this.interval);
-      }, 300);
+      }, 300); //going to go through the function every 300 miliseconds to check if is getting everything
     },
     dropMarker(item) {
-      return new window.google.maps.Marker({
+      //create marker and set the position to be the bike station position
+      const marker = new window.google.maps.Marker({
         position: {
           lat: item.position.lat,
           lng: item.position.lng,
         },
         map: this.map,
       });
+      marker.addListener("click", () => {
+        this.$emit("markerSelected", item);
+      });
+      return marker;
     },
 
     createMarkers() {
       if (this.data) {
-        debugger;
+        //interact over the items and map to this.markers
         this.markers = this.data.map(this.dropMarker);
       }
+    },
+
+    clearMarkers() {
+      this.markers.forEach((m) => m.setMap(null));
     },
   },
 };

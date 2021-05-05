@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <GoogleMaps :data="mapData" />
+    <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
+    <nav>
+      <button @click="goToFavourites">Favourites</button>
+      <button @click="goToStation">Stations</button>
+      <button @click="goToAccount">Account</button>
+    </nav>
   </div>
 </template>
 
@@ -12,6 +17,9 @@ export default {
   data() {
     return {
       mapData: [],
+      stationsBikeData: [],
+      favouritesBikeData: [],
+      screen: "Stations",
     };
   },
 
@@ -22,13 +30,30 @@ export default {
 
   async mounted() {
     await this.getDublinBike();
+    this.goToStation();
   },
 
   methods: {
     async getDublinBike() {
       const dublinData = await getDublinBike();
       const dublinJson = await dublinData.json();
-      this.mapData = dublinJson;
+      this.stationsBikeData = dublinJson;
+    },
+
+    goToStation() {
+      this.screen = "Station";
+      this.mapData = this.stationsBikeData;
+    },
+
+    goToFavourites() {
+      this.screen = "Favourites";
+      this.mapData = this.favouritesBikeData;
+    },
+
+    goToAccount() {},
+
+    markerSelected(item) {
+      this.selectedStation = item;
     },
   },
 };
