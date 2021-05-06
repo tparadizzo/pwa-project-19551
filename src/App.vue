@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
+    <div>
+      <FavouritesDetailView
+        v-if="selectedStation"
+        :selectedStation="selectedStation"
+      />
+    </div>
     <nav>
       <button @click="goToFavourites">Favourites</button>
       <button @click="goToStation">Stations</button>
@@ -12,6 +18,7 @@
 <script>
 import GoogleMaps from "./components/GoogleMaps";
 import { getDublinBike } from "./services/dublinBikeService";
+import FavouritesDetailView from "./components/FavouritesDetailView";
 
 export default {
   data() {
@@ -20,12 +27,14 @@ export default {
       stationsBikeData: [],
       favouritesBikeData: [],
       screen: "Stations",
+      selectedStation: null,
     };
   },
 
   name: "App",
   components: {
     GoogleMaps,
+    FavouritesDetailView,
   },
 
   async mounted() {
