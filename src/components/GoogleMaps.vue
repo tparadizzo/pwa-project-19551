@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <h1>Coordinates</h1>
-    <div class="google-maps" ref="googlemaps"></div>
-  </div>
+  <div class="google-maps" ref="googlemaps"></div>
 </template>
 
 <script>
@@ -29,8 +26,8 @@ export default {
   watch: {
     data(newData, oldData) {
       console.log(newData, oldData);
-      this.createMarkers();
       this.clearMarkers();
+      this.createMarkers();
     },
   },
 

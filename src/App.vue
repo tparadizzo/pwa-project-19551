@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
-    <div>
+    <div class="app-info">
       <FavouritesDetailView
         v-if="selectedStation"
         :selectedStation="selectedStation"
@@ -55,6 +55,7 @@ export default {
     },
 
     goToFavourites() {
+      debugger;
       this.screen = "Favourites";
       this.mapData = this.favouritesBikeData;
     },
@@ -69,6 +70,11 @@ export default {
 </script>
 
 <style>
+.app-info {
+  height: calc(40vh - 3rem);
+  box-shadow: 0 -0.3rem 10px rgba(0, 0, 0, 0.3);
+}
+
 #app {
   font-family: "Karla", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -76,6 +82,22 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  max-width: 35rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+nav {
+  display: flex;
+  background: white;
+  box-shadow: 0 -0.3rem 10px rgba(0, 0, 0, 0.3);
+}
+
+nav button {
+  border: none;
+  flex: 1;
+  padding: 1rem 2rem;
 }
 </style>
 
