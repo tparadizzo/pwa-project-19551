@@ -3,6 +3,7 @@
     <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
     <div class="app-info">
       <FavouritesDetailView
+        @back="onBack"
         v-if="selectedStation"
         :selectedStation="selectedStation"
       />
@@ -64,6 +65,10 @@ export default {
 
     markerSelected(item) {
       this.selectedStation = item;
+    },
+
+    onBack() {
+      this.selectedStation = null;
     },
   },
 };

@@ -1,6 +1,7 @@
 <template>
   <div class="detail-view">
     <div class="stt-info" v-if="selectedStation">
+      <button id="back-btn" @click="goBack">Back</button>
       <!-- getting informations needed from JSON file -->
       <div id="stt-name">{{ selectedStation.name }}</div>
       <div id="stt-address">{{ selectedStation.address }}</div>
@@ -20,8 +21,12 @@
         </div>
       </div>
       <!-- creating favourtie/remove button, when clicked add to favourite or remove to favourite -->
-      <button v-if="!isFavourite" @click="addToFavourites">Favourites</button>
-      <button v-if="isFavourite" @click="removeFromFavourites">Remove</button>
+      <button id="fav-btn" v-if="!isFavourite" @click="addToFavourites">
+        Favourites
+      </button>
+      <button id="remove-btn" v-if="isFavourite" @click="removeFromFavourites">
+        Remove
+      </button>
     </div>
   </div>
 </template>
@@ -92,6 +97,10 @@ export default {
 
       this.isFavourite = false;
     },
+
+    goBack() {
+      this.$emit("back");
+    },
   },
 };
 </script>
@@ -147,5 +156,38 @@ export default {
   border-style: solid;
   border-radius: 7px;
   border-color: lightgray;
+}
+
+#fav-btn {
+  border: none;
+  border-radius: 4px;
+  flex: 1;
+  padding: 1rem 2rem;
+  background-color: #5ab5f2;
+  width: 100%;
+  font-size: inherit;
+  margin-top: 13px;
+}
+
+#remove-btn {
+  border: none;
+  border-radius: 4px;
+  flex: 1;
+  padding: 1rem 2rem;
+  width: 100%;
+  font-size: inherit;
+  margin-top: 13px;
+  background-color: #f2625d;
+}
+
+#back-btn {
+  border-style: double;
+  border-radius: 4px;
+  border-color: #5ab5f2;
+  flex: 1;
+  padding: 10px 20px;
+  background-color: lightgray;
+  margin-left: 79%;
+  position: absolute;
 }
 </style>
