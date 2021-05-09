@@ -7,6 +7,11 @@
         v-if="selectedStation"
         :selectedStation="selectedStation"
       />
+      <ListView
+        :data="mapData"
+        v-if="!selectedStation"
+        @select="markerSelected"
+      />
     </div>
     <nav>
       <button @click="goToFavourites">Favourites</button>
@@ -20,6 +25,7 @@
 import GoogleMaps from "./components/GoogleMaps";
 import { getDublinBike } from "./services/dublinBikeService";
 import FavouritesDetailView from "./components/FavouritesDetailView";
+import ListView from "./components/ListView";
 
 export default {
   data() {
@@ -36,6 +42,7 @@ export default {
   components: {
     GoogleMaps,
     FavouritesDetailView,
+    ListView,
   },
 
   async mounted() {
