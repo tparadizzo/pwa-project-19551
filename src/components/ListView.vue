@@ -27,3 +27,28 @@ export default {
   },
 };
 </script>
+
+<style>
+.list-view {
+  height: 100%;
+  overflow: auto;
+}
+
+h1 {
+  font-size: 25px;
+  text-align: left;
+  padding: 16px 24px 16px 24px;
+  background-color: #5ab5f2;
+  margin: 0;
+}
+ul {
+  list-style: none;
+  text-align: left;
+  padding: 16px 24px 16px 24px;
+  border-style: solid;
+  border-radius: 7px;
+  border-color: lightgray;
+  border-radius: 4px;
+  margin: 0;
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <WeatherDetailView :data="weatherInfoData" />
     <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
     <div class="app-info">
       <FavouritesDetailView
@@ -24,8 +25,10 @@
 <script>
 import GoogleMaps from "./components/GoogleMaps";
 import { getDublinBike } from "./services/dublinBikeService";
+import { getWeatherData } from "./services/weatherService";
 import FavouritesDetailView from "./components/FavouritesDetailView";
 import ListView from "./components/ListView";
+import WeatherDetailView from "./components/WeatherDetailView";
 
 export default {
   data() {
@@ -35,6 +38,7 @@ export default {
       favouritesBikeData: [],
       screen: "Stations",
       selectedStation: null,
+      weatherInfoData: [],
     };
   },
 
@@ -43,14 +47,22 @@ export default {
     GoogleMaps,
     FavouritesDetailView,
     ListView,
+    WeatherDetailView,
   },
 
   async mounted() {
+    await this.getWeatherData();
     await this.getDublinBike();
     this.goToStation();
   },
 
   methods: {
+    async getWeatherData() {
+      const weatherData = await getWeatherData();
+      const weatherJson = await weatherData.json();
+      this.weatherInfoData = weatherJson;
+    },
+
     async getDublinBike() {
       const dublinData = await getDublinBike();
       const dublinJson = await dublinData.json();
@@ -63,8 +75,8 @@ export default {
     },
 
     goToFavourites() {
-      debugger;
       this.screen = "Favourites";
+      this.updateFavourites();
       this.mapData = this.favouritesBikeData;
     },
 
@@ -76,6 +88,21 @@ export default {
 
     onBack() {
       this.selectedStation = null;
+      this.updateMapData();
+    },
+
+    updateFavourites() {
+      let favouriteStations = localStorage.getItem("favouriteStations") || `[]`;
+      this.favouritesBikeData = JSON.parse(favouriteStations);
+    },
+
+    updateMapData() {
+      if (this.screen === "Favourites") {
+        this.updateFavourites();
+        this.mapData = this.favouritesBikeData;
+      } else if (this.screen === "Station") {
+        this.mapData = this.stationsBikeData;
+      }
     },
   },
 };

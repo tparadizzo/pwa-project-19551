@@ -34,28 +34,25 @@
 <script>
 export default {
   data() {
+    let isFavourite = false;
+    let favouriteStations = localStorage.getItem("favouriteStations");
+
+    if (favouriteStations) {
+      favouriteStations = JSON.parse(favouriteStations);
+      const favouriteFound = favouriteStations.find(
+        (fs) => fs.number === this.selectedStation.number
+      );
+      isFavourite = !!favouriteFound;
+    }
+
     return {
-      isFavourite: false,
+      isFavourite,
     };
   },
 
   props: {
     selectedStation: {
       type: Object,
-    },
-  },
-
-  watch: {
-    selectedStation(newSelectedStation) {
-      let favouriteStations = localStorage.getItem("favouriteStations");
-
-      if (favouriteStations) {
-        favouriteStations = JSON.parse(favouriteStations);
-        const favouriteFound = favouriteStations.find(
-          (fs) => fs.number === newSelectedStation.number
-        );
-        this.isFavourite = !!favouriteFound;
-      }
     },
   },
 
