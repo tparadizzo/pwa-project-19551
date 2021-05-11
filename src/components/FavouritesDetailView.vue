@@ -131,16 +131,8 @@ export default {
   padding: 0 0 5px;
 }
 
-#available-bikes {
-  margin: 10px 24px;
-  text-align: center;
-}
-
-#available-stands {
-  margin: 10px 24px;
-  text-align: center;
-}
-
+#available-bikes,
+#available-stands,
 #bike-stands {
   margin: 10px 24px;
   text-align: center;

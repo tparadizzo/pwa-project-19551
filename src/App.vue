@@ -1,19 +1,30 @@
 <template>
   <div id="app">
-    <WeatherDetailView :data="weatherInfoData" />
-    <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
-    <div class="app-info">
-      <FavouritesDetailView
-        @back="onBack"
-        v-if="selectedStation"
-        :selectedStation="selectedStation"
-      />
-      <ListView
-        :data="mapData"
-        v-if="!selectedStation"
-        @select="markerSelected"
+    <div class="app-content" v-if="screen != 'Account'">
+      <WeatherDetailView :data="weatherInfoData" />
+      <GoogleMaps :data="mapData" @markerSelected="markerSelected" />
+      <div class="app-info">
+        <FavouritesDetailView
+          @back="onBack"
+          v-if="selectedStation"
+          :selectedStation="selectedStation"
+        />
+        <ListView
+          :data="mapData"
+          v-if="!selectedStation"
+          @select="markerSelected"
+        />
+      </div>
+    </div>
+    <div class="app-content" v-else>
+      <LoginView @logged="onUserLogged" v-if="userAccount.email == null" />
+      <AccountView
+        v-if="userAccount.email != null"
+        :account="userAccount"
+        @logout="onUserLogout"
       />
     </div>
+
     <nav>
       <button @click="goToFavourites">Favourites</button>
       <button @click="goToStation">Stations</button>
@@ -29,11 +40,14 @@ import { getWeatherData } from "./services/weatherService";
 import FavouritesDetailView from "./components/FavouritesDetailView";
 import ListView from "./components/ListView";
 import WeatherDetailView from "./components/WeatherDetailView";
+import LoginView from "./components/LoginView";
+import AccountView from "./components/AccountView";
 
 export default {
   data() {
     return {
       mapData: [],
+      userAccount: {},
       stationsBikeData: [],
       favouritesBikeData: [],
       screen: "Stations",
@@ -48,6 +62,13 @@ export default {
     FavouritesDetailView,
     ListView,
     WeatherDetailView,
+    LoginView,
+    AccountView,
+  },
+
+  created() {
+    let userAccount = localStorage.getItem("userAccount") || "{}";
+    this.userAccount = JSON.parse(userAccount);
   },
 
   async mounted() {
@@ -80,7 +101,9 @@ export default {
       this.mapData = this.favouritesBikeData;
     },
 
-    goToAccount() {},
+    goToAccount() {
+      this.screen = "Account";
+    },
 
     markerSelected(item) {
       this.selectedStation = item;
@@ -104,6 +127,16 @@ export default {
         this.mapData = this.stationsBikeData;
       }
     },
+
+    onUserLogged(user) {
+      this.userAccount = user;
+      localStorage.setItem("userAccount", JSON.stringify(user));
+    },
+
+    onUserLogout() {
+      this.userAccount = {};
+      localStorage.removeItem("userAccount");
+    },
   },
 };
 </script>
@@ -122,9 +155,14 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   max-width: 35rem;
+  min-height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+.app-content {
+  flex: 1;
+  background-color: white;
 }
 
 nav {
