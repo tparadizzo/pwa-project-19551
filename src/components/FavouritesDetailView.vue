@@ -136,15 +136,17 @@ export default {
 #bike-stands {
   margin: 10px 24px;
   text-align: center;
+  flex: 1;
 }
 
 .stand-info {
   display: flex;
+  flex: 1;
   flex-direction: row;
-  padding: 0 24px 0 24px;
   border-style: solid;
   border-radius: 7px;
   border-color: lightgray;
+  text-align: center;
 }
 
 #fav-btn {
@@ -176,7 +178,8 @@ export default {
   flex: 1;
   padding: 10px 20px;
   background-color: lightgray;
-  margin-left: 79%;
   position: absolute;
+  top: 16px;
+  right: 24px;
 }
 </style>

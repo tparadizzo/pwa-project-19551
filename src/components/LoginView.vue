@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="form-detail">
     <div>
-      <h2>Already have an account? Login!</h2>
+      <h1>Already have an account? Login!</h1>
+      <br />
     </div>
     <div>
       <!-- Login form -->
@@ -20,7 +21,8 @@
 
     <div>
       <div>
-        <h2>Do not have an account? Register!</h2>
+        <h1>Do not have an account? Register!</h1>
+        <br />
       </div>
       <!-- register form -->
       <form @submit.prevent="doRegister">
@@ -82,10 +84,10 @@ export default {
               email: "tabitalp@gmail.com",
             });
           } else {
-            alert("We can't log you in with this credentials");
+            alert("Wrong credentials");
           }
         } else {
-          alert("This is an invalid username");
+          alert("Invalid username");
         }
       } else {
         alert("User name and password must be set");
@@ -104,16 +106,34 @@ export default {
 <style scoped>
 input {
   margin: 5px 0;
-  padding: 15px;
-  width: 90%;
+  box-sizing: border-box;
+  width: 100%;
   border-radius: 10px;
   border-color: grey;
   border-style: double;
+  padding: 10px 20px;
+  font-size: 15px;
 }
 
-h2 {
+.form-detail {
+  text-align: left;
+  padding: 16px 24px 16px;
+}
+
+h1 {
+  border-radius: 4px;
 }
 
 button {
+  padding: 10px 20px;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  width: 99%;
+  border-radius: 10px;
+  font-weight: bold;
+  border-style: solid;
+  border-color: #5ab5f2;
+  background-color: lightgray;
+  box-shadow: 0 0.3rem 13px rgb(0 0 0 / 10%);
 }
 </style>

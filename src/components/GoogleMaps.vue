@@ -83,6 +83,6 @@ export default {
 <style scoped>
 .google-maps {
   width: 100%;
-  height: 60vh;
+  flex: 1;
 }
 </style>

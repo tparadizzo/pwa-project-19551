@@ -142,9 +142,14 @@ export default {
 </script>
 
 <style>
+body {
+  margin: 0;
+}
+
 .app-info {
-  height: calc(40vh - 3rem);
   box-shadow: 0 -0.3rem 10px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  max-height: 290px;
 }
 
 #app {
@@ -155,12 +160,14 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   max-width: 35rem;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 .app-content {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   background-color: white;
 }
